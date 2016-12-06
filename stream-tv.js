@@ -8,14 +8,16 @@ var express = require('express');
 
 var router = express();
 var server = http.createServer(router);
+var fs = require('fs');
 // var io = socketio.listen(server);
-var commandargs = process.argv;
-var stdout = function (commandargs){
-    var tempnum = 0;
-    for(var x = 2; x <= (commandargs.length - 1); x++){
-        tempnum += Number(commandargs[x]);
-    }
-    console.log(tempnum);
-    };
+var pathToFile = process.argv[2];
 
-stdout(commandargs);
+var buff = fs.readFileSync(pathToFile);
+var str = buff.toString();
+function lines(str){
+    var splitstr = str.split('\n');
+    console.log(splitstr);
+    return console.log(splitstr.length - 1);
+    
+}
+lines(str);
