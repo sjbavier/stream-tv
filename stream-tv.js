@@ -12,12 +12,8 @@ var fs = require('fs');
 // var io = socketio.listen(server);
 var pathToFile = process.argv[2];
 
-var buff = fs.readFileSync(pathToFile);
-var str = buff.toString();
-function lines(str){
-    var splitstr = str.split('\n');
-    console.log(splitstr);
-    return console.log(splitstr.length - 1);
-    
-}
-lines(str);
+var buff = fs.readFile(pathToFile, function callback(err, data){
+    if(err){ return console.log("there was an error reading the file") }
+    var str = data.toString().split('\n');
+    return console.log(str.length -1);
+});
