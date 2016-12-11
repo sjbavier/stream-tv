@@ -6,14 +6,23 @@ var async = require('async');
 // var socketio = require('socket.io');
 var express = require('express');
 
+
 var router = express();
 var server = http.createServer(router);
 var fs = require('fs');
 // var io = socketio.listen(server);
-var pathToFile = process.argv[2];
+var directory = process.argv[2];
+var fileType = process.argv[3];
 
-var buff = fs.readFile(pathToFile, function callback(err, data){
-    if(err){ return console.log("there was an error reading the file") }
-    var str = data.toString().split('\n');
-    return console.log(str.length -1);
+ fs.readdir(directory, function(err, list){
+    if(err){ return console.error(err)}
+    var filList = [];
+    for(var x = 0; x < list.length; x++){
+        if("." + fileType == path.extname(list[x])){
+            filList.push(list[x]);
+        }
+    }
+    return console.log(filList.join('\n'));
 });
+
+
