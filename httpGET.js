@@ -3,27 +3,54 @@ module.exports = function(url, callback){
     
     var http = require('http');
     var bl = require('bl');
+    var allData = [];//initialize data variable
+    var count = 0;
     
-    http.get(url, function(response){
+    url.forEach(function(urlRequest){
         
-        // response.setEncoding('utf8');//set encoding to utf8
+        getURL(urlRequest, count);
         
-        var data;//initialize data variable
-        var characters;
+        count++;
         
-        response.pipe(bl(function(err, data){
+    });
+    
+    function getURL(urlRequest, count){
+        
+        
+        http.get(urlRequest, function(response){
             
+            
+  
+            response.pipe(bl(function(err, data){
+
              if(err){console.log(data + "there was an error with the response object");}
-             
+                
                 data = data.toString();
-                characters = data.length;
-           
+    
+                allData[count] = data;
+                // console.log("count iteration " + count);
+                
+                collectData(allData);
+                
               
-              callback(data, characters);
-        }));
+            }));
      
   
-    });
+        });
+        
+    }
+    
+  function collectData(allData){
+      
+     
+      
+        if((allData.length) == url.length){
+            
+            allData = allData.join("\n");
+            callback(allData);
+        }
+  }
+    
 
 
 }
