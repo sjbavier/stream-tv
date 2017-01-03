@@ -1,4 +1,5 @@
-module.exports = function(url, callback){
+module.exports = function(url, callback)
+{
     
     
     var http = require('http');
@@ -6,7 +7,8 @@ module.exports = function(url, callback){
     var allData = [];//initialize data variable
     var count = 0;
     
-    url.forEach(function(urlRequest){
+    url.forEach(function(urlRequest)
+    {
         
         getURL(urlRequest, count);
         
@@ -14,13 +16,11 @@ module.exports = function(url, callback){
         
     });
     
-    function getURL(urlRequest, count){
+    function getURL(urlRequest, count)
+    {
         
         
         http.get(urlRequest, function(response){
-            
-            
-  
             response.pipe(bl(function(err, data){
 
              if(err){console.log(data + "there was an error with the response object");}
@@ -40,17 +40,16 @@ module.exports = function(url, callback){
         
     }
     
-  function collectData(allData){
+  function collectData(allData)
+  {
       
-     
-      
-        if((allData.length) == url.length){
+        if((allData.length) == url.length)
+        {
             
             allData = allData.join("\n");
             callback(allData);
         }
   }
     
-
 
 }

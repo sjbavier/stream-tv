@@ -7,13 +7,10 @@ var bl = require('bl');
 
 var url = [];
 
-for(var x = 2; x < process.argv.length; x++){
-    url.push(process.argv[x]);
-}
+var port = process.argv[2];
+var tcpDate = require('./TCP');
 
-var httpGET = require('./httpGET');
-
-httpGET(url, function(data){
+tcpDate(port, function(data){
     console.log(data);
     
 })
