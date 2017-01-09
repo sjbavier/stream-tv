@@ -1,16 +1,12 @@
 var http = require('http');
 var path = require('path');
 
-var async = require('async');
-
-var bl = require('bl');
-
-var url = [];
 
 var port = process.argv[2];
-var tcpDate = require('./TCP');
+var filePath = process.argv[3];
+var portserver = require('./portserver');
 
-tcpDate(port, function(data){
-    console.log(data);
+portserver(port, filePath, function(data){
+
     
 })
